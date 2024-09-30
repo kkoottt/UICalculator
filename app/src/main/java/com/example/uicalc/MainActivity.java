@@ -117,10 +117,20 @@ public class MainActivity extends AppCompatActivity {
                 if (!currentInput.isEmpty()) {
                     // Remove the last character
                     currentInput = currentInput.substring(0, currentInput.length() - 1);
+
+                    // Check if the last character was an operator (space before and after operator)
+                    if (operatorSet && currentInput.endsWith(" ")) {
+                        operatorSet = false;  // Reset operator flag
+                        operator = "";  // Clear the operator
+                        // Remove operator and space
+                        currentInput = currentInput.trim();  // Remove the trailing space after operator
+                    }
+
                     // If the last character removed was a decimal point, reset the decimalUsed flag
                     if (!currentInput.contains(".")) {
                         decimalUsed = false;
                     }
+
                     binding.input.setText(currentInput);
                 }
             }
