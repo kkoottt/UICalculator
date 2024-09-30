@@ -1,0 +1,50 @@
+{
+  "allFiles": [
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/UICalc/app/src/main/res/layout/activity_main.xml",
+      "selection": {
+        "end": {
+          "column": 12,
+          "index": 5674,
+          "line": 54
+        },
+        "start": {
+          "column": 12,
+          "index": 5674,
+          "line": 54
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/UICalc/app/src/main/res/drawable/button_background.xml",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 225,
+          "line": 4
+        },
+        "start": {
+          "column": 0,
+          "index": 225,
+          "line": 4
+        }
+      }
+    },
+    {
+      "file": "/storage/emulated/0/AndroidIDEProjects/UICalc/app/src/main/java/com/example/uicalc/MainActivity.java",
+      "selection": {
+        "end": {
+          "column": 0,
+          "index": 6112,
+          "line": 158
+        },
+        "start": {
+          "column": 0,
+          "index": 6112,
+          "line": 158
+        }
+      }
+    }
+  ],
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/UICalc/app/src/main/java/com/example/uicalc/MainActivity.java"
+}
