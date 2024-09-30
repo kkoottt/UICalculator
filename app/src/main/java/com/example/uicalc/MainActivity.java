@@ -3,7 +3,7 @@ package com.example.uicalc;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;  // Import for Button
+import android.widget.Button;
 import com.example.uicalc.databinding.ActivityMainBinding;
 import java.text.DecimalFormat;
 
@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     private String operator = "";
     private double firstValue = 0;
     private boolean operatorSet = false;
+    private boolean decimalUsed = false;  // Track decimal usage for each number
     private DecimalFormat decimalFormat = new DecimalFormat("#.########");
 
     @Override
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         // Inflate and get instance of binding
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
-        // set content view to binding's root
+        // Set content view to binding's root
         setContentView(binding.getRoot());
 
         // Set up number and operator listeners
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener numberClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Button button = (Button) v;  // Cast view to Button
+                Button button = (Button) v;
                 currentInput += button.getText().toString();
                 binding.input.setText(currentInput);
             }
@@ -54,9 +55,10 @@ public class MainActivity extends AppCompatActivity {
         binding.btnDot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!currentInput.contains(".")) {
+                if (!decimalUsed) {  // Only allow one decimal per number
                     currentInput += ".";
                     binding.input.setText(currentInput);
+                    decimalUsed = true;  // Mark that the decimal is used for the current number
                 }
             }
         });
@@ -66,13 +68,16 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener operatorClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Button button = (Button) v;  // Cast view to Button
+                Button button = (Button) v;
                 if (!operatorSet && !currentInput.isEmpty()) {
                     firstValue = Double.parseDouble(currentInput);
                     operator = button.getText().toString();
                     operatorSet = true;
-                    currentInput = "";
-                    binding.input.setText("");
+                    decimalUsed = false;  // Reset decimal flag for the second number
+
+                    // Display the operator in the input field
+                    currentInput += " " + operator + " ";
+                    binding.input.setText(currentInput);
                 }
             }
         };
@@ -100,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 operator = "";
                 firstValue = 0;
                 operatorSet = false;
+                decimalUsed = false;  // Reset decimal flag
                 binding.input.setText("");
                 binding.output.setText("");
             }
@@ -109,7 +115,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!currentInput.isEmpty()) {
+                    // Remove the last character
                     currentInput = currentInput.substring(0, currentInput.length() - 1);
+                    // If the last character removed was a decimal point, reset the decimalUsed flag
+                    if (!currentInput.contains(".")) {
+                        decimalUsed = false;
+                    }
                     binding.input.setText(currentInput);
                 }
             }
@@ -119,32 +130,36 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (operatorSet && !currentInput.isEmpty()) {
-                    double secondValue = Double.parseDouble(currentInput);
-                    double result = 0;
+                    // Split input string to separate the operator part from second number
+                    String[] parts = currentInput.split(" ");
+                    if (parts.length == 3) {
+                        double secondValue = Double.parseDouble(parts[2]);
+                        double result = 0;
 
-                    switch (operator) {
-                        case "+":
-                            result = firstValue + secondValue;
-                            break;
-                        case "-":
-                            result = firstValue - secondValue;
-                            break;
-                        case "*":
-                            result = firstValue * secondValue;
-                            break;
-                        case "/":
-                            if (secondValue != 0) {
-                                result = firstValue / secondValue;
-                            } else {
-                                binding.output.setText("Error");
-                                return;
-                            }
-                            break;
+                        switch (operator) {
+                            case "+":
+                                result = firstValue + secondValue;
+                                break;
+                            case "-":
+                                result = firstValue - secondValue;
+                                break;
+                            case "*":
+                                result = firstValue * secondValue;
+                                break;
+                            case "/":
+                                if (secondValue != 0) {
+                                    result = firstValue / secondValue;
+                                } else {
+                                    binding.output.setText("Error");
+                                    return;
+                                }
+                                break;
+                        }
+
+                        currentInput = decimalFormat.format(result);
+                        binding.output.setText(currentInput);
+                        operatorSet = false;
                     }
-
-                    currentInput = decimalFormat.format(result);
-                    binding.output.setText(currentInput);
-                    operatorSet = false;
                 }
             }
         });
