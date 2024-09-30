@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
                 Button button = (Button) v;
                 currentInput += button.getText().toString();
                 binding.input.setText(currentInput);
+                binding.input.setHorizontallyScrolling(true);
+                binding.input.setSelection(currentInput.length());  // Scroll to the end
             }
         };
 
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 if (!decimalUsed) {  // Only allow one decimal per number
                     currentInput += ".";
                     binding.input.setText(currentInput);
+                    binding.input.setHorizontallyScrolling(true);
+                    binding.input.setSelection(currentInput.length());  // Scroll to the end
                     decimalUsed = true;  // Mark that the decimal is used for the current number
                 }
             }
@@ -78,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
                     // Display the operator in the input field
                     currentInput += " " + operator + " ";
                     binding.input.setText(currentInput);
+                    binding.input.setHorizontallyScrolling(true);
+                    binding.input.setSelection(currentInput.length());  // Scroll to the end
                 }
             }
         };
@@ -94,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
                     double value = Double.parseDouble(currentInput) / 100;
                     currentInput = decimalFormat.format(value);
                     binding.input.setText(currentInput);
+                    binding.input.setHorizontallyScrolling(true);
+                    binding.input.setSelection(currentInput.length());  // Scroll to the end
                 }
             }
         });
@@ -132,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     binding.input.setText(currentInput);
+                    binding.input.setHorizontallyScrolling(true);
+                    binding.input.setSelection(currentInput.length());  // Scroll to the end
                 }
             }
         });
@@ -166,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
 
+                        // Limit the result to 8 decimal places
                         currentInput = decimalFormat.format(result);
                         binding.output.setText(currentInput);
                         operatorSet = false;

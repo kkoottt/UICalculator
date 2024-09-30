@@ -4,14 +4,14 @@
       "file": "/storage/emulated/0/AndroidIDEProjects/UICalc/app/src/main/res/layout/activity_main.xml",
       "selection": {
         "end": {
-          "column": 12,
-          "index": 5674,
-          "line": 54
+          "column": 31,
+          "index": 698,
+          "line": 20
         },
         "start": {
-          "column": 12,
-          "index": 5674,
-          "line": 54
+          "column": 31,
+          "index": 698,
+          "line": 20
         }
       }
     },
@@ -35,16 +35,16 @@
       "selection": {
         "end": {
           "column": 0,
-          "index": 7575,
-          "line": 183
+          "index": 8437,
+          "line": 194
         },
         "start": {
           "column": 0,
-          "index": 7575,
-          "line": 183
+          "index": 0,
+          "line": 0
         }
       }
     }
   ],
-  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/UICalc/app/src/main/java/com/example/uicalc/MainActivity.java"
+  "selectedFile": "/storage/emulated/0/AndroidIDEProjects/UICalc/app/src/main/res/layout/activity_main.xml"
 }
